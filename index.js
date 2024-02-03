@@ -56,6 +56,24 @@ app.post('/users', async(req, res) => {
     })
 
 
+    // Update user info
+    app.put('/users/:id', async(req, res) => {
+      const id = req.params.id;
+      const query = { _id: new ObjectId(id)};
+      const updatedData = req.body;
+      const updatedDoc = {
+        $set : {
+          name: updatedData.name,
+          bio: updatedData.bio,
+          image: updatedData.image,
+          title: updatedData.title,
+        }
+      }
+      const result = await userCollection.updateOne(query, updatedDoc);
+      res.send(result)
+    });
+
+
 
 
 
